@@ -60,23 +60,31 @@ var styles = StyleSheet.create({
     color: '#48BBEC'
   },
   image: {
-    width: 217,
-    height: 138
+    marginTop: 40
   }
 });
 
 class StartPage extends Component {
+constructor(props) {
+  super(props);
+  this.state = {
+    isLoading: false
+  };
+}
+
 
   render() {
     return(
     <View style={styles.container}>
-      <Text style={styles.description}>Woooo!</Text>
+      <Text style={styles.description}>Detta är en app som hämtar krisinformation</Text>
       <View style={styles.flowRight}>
       <TouchableHighlight style={styles.button}
+        //onPress={this.onFecthDataPressed.bind(this)}
         underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Hämta data</Text>
         </TouchableHighlight>
         </View>
+        <Image source={require('./Resources/logo.png')} style={styles.image} />
     </View>
   )};
 }
