@@ -60,7 +60,8 @@ var styles = StyleSheet.create({
     color: '#48BBEC'
   },
   image: {
-    marginTop: 40
+    marginTop: 40,
+    marginBottom: 20
   }
 });
 
@@ -77,9 +78,10 @@ onFecthDataPressed() {
   this.setState({ isLoading: true});
   const query = 'https://api.krisinformation.se/v1/feed';
   console.log('onfetchDataPressed');
+  this.setState({ isLoading: true});
   fetch(query)
   .then(response => response.json())
-  .then(json => this._handleResponse(json.response))
+  .then(json => this._handleResponse(json.Entries))
   .catch(error =>
   this.setState({
     isLoading : false,
@@ -87,7 +89,7 @@ onFecthDataPressed() {
   }));
 }
 
-_handleResponse(response) {
+_handleResponse(Entries) {
   this.setState({ isLoading: false , message: ''});
   /*if(response.application_response_code.substr(0,1) === '1') {
     this.props.navigator.push({
@@ -95,13 +97,14 @@ _handleResponse(response) {
       component: SearchResults,
       passProps: {listings: response.listings}
     });*/
-    console.log('Properties found: ' + response.Entries.length);
+    console.log('Properties found: ' + Entries.length);
   //} else {
   //  this.setState({ message: 'Location not recognized; please try again'});
   }
 
 
   render() {
+    var spinner = this.state.isLoading ? ( <ActivityIndicator size='large' />) : (<View/>);
     return(
     <View style={styles.container}>
       <Text style={styles.description}>Detta är en app som hämtar krisinformation</Text>
@@ -113,6 +116,8 @@ _handleResponse(response) {
         </TouchableHighlight>
         </View>
         <Image source={require('./Resources/logo.png')} style={styles.image} />
+        {spinner}
+        <Text style={styles.description}>{this.state.message}</Text>
     </View>
   )};
 }
