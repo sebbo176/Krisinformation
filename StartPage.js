@@ -68,9 +68,37 @@ class StartPage extends Component {
 constructor(props) {
   super(props);
   this.state = {
-    isLoading: false
+    isLoading: false,
+    message: ''
   };
 }
+
+onFecthDataPressed() {
+  this.setState({ isLoading: true});
+  const query = 'https://api.krisinformation.se/v1/feed';
+  console.log('onfetchDataPressed');
+  fetch(query)
+  .then(response => response.json())
+  .then(json => this._handleResponse(json.response))
+  .catch(error =>
+  this.setState({
+    isLoading : false,
+    message: 'Något gick dåligt vid hämtning av data ' + error
+  }));
+}
+
+_handleResponse(response) {
+  this.setState({ isLoading: false , message: ''});
+  /*if(response.application_response_code.substr(0,1) === '1') {
+    this.props.navigator.push({
+      title: 'Results',
+      component: SearchResults,
+      passProps: {listings: response.listings}
+    });*/
+    console.log('Properties found: ' + response.Entries.length);
+  //} else {
+  //  this.setState({ message: 'Location not recognized; please try again'});
+  }
 
 
   render() {
@@ -79,7 +107,7 @@ constructor(props) {
       <Text style={styles.description}>Detta är en app som hämtar krisinformation</Text>
       <View style={styles.flowRight}>
       <TouchableHighlight style={styles.button}
-        //onPress={this.onFecthDataPressed.bind(this)}
+        onPress={this.onFecthDataPressed.bind(this)}
         underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Hämta data</Text>
         </TouchableHighlight>
