@@ -71,6 +71,12 @@ class StartPage extends Component {
     return(
     <View style={styles.container}>
       <Text style={styles.description}>Woooo!</Text>
+      <View style={styles.flowRight}>
+      <TouchableHighlight style={styles.button}
+        underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Hämta data</Text>
+        </TouchableHighlight>
+        </View>
     </View>
   )};
 }
