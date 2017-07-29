@@ -11,7 +11,7 @@ import {
   Image
 } from 'react-native';
 
-//var SearchResults = require('./SearchResults');
+var CrisisResults = require('./CrisisResults');
 
 var styles = StyleSheet.create({
   description: {
@@ -91,20 +91,22 @@ onFecthDataPressed() {
 
 _handleResponse(Entries) {
   this.setState({ isLoading: false , message: ''});
-  /*if(response.application_response_code.substr(0,1) === '1') {
+  if(Entries.length > 0) {
     this.props.navigator.push({
       title: 'Results',
-      component: SearchResults,
-      passProps: {listings: response.listings}
-    });*/
-    console.log('Properties found: ' + Entries.length);
-  //} else {
-  //  this.setState({ message: 'Location not recognized; please try again'});
+      component: CrisisResults,
+      passProps: {Entries: Entries}
+    });
+    //console.log('Properties found: ' + Entries.length);
+  } else {
+    this.setState({ message: 'Badness 2k'});
   }
+}
 
 
   render() {
     var spinner = this.state.isLoading ? ( <ActivityIndicator size='large' />) : (<View/>);
+
     return(
     <View style={styles.container}>
       <Text style={styles.description}>Detta är en app som hämtar krisinformation</Text>
