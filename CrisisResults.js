@@ -52,8 +52,12 @@ renderRow(rowData, sectionID, rowID) {
   return (
     <TouchableHighlight
         underlayColor='#dddddd'>
-      <View>
-        <Text>{rowData.Title}</Text>
+      <View style={styles.rowContainer}>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{rowData.Title}</Text>
+          <Text style={styles.title}>{rowData.CapArea.CapAreaDesc}</Text>
+        </View>
+        <View style={styles.separator}/>
       </View>
     </TouchableHighlight>
   );
