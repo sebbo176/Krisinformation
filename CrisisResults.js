@@ -23,11 +23,6 @@ var styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#dddddd'
   },
-  price: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: '#48BBEC'
-  },
   title: {
     fontSize: 20,
     color: '#656565'
@@ -57,11 +52,12 @@ renderRow(rowData, sectionID, rowID) {
   var areas = Object.keys(rowData.CapArea)
   .map(key => (rowData.CapArea[key].CapAreaDesc))
   .join(', ');
-
+  var backgroundColor = rowData.CapEvent === 'News' ? '#ffffff' : '#f499ac';
+  
   return (
     <TouchableHighlight
         underlayColor='#dddddd'>
-      <View style={styles.rowContainer}>
+      <View style={styles.rowContainer} backgroundColor={backgroundColor}>
         <View style={styles.textContainer}>
           <Text style={styles.title} numberOfLines={1}>{rowData.Title}</Text>
           <Text style={styles.countries}>{areas}</Text>
@@ -71,7 +67,6 @@ renderRow(rowData, sectionID, rowID) {
     </TouchableHighlight>
   );
 }
-
   render() {
     return (
       <ListView
