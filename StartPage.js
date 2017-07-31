@@ -65,19 +65,25 @@ var styles = StyleSheet.create({
   }
 });
 
+var statusColor = '';
+const query = 'https://api.krisinformation.se/v1/feed';
+
 class StartPage extends Component {
 constructor(props) {
   super(props);
   this.state = {
     isLoading: false,
-    message: ''
+    message: '',
+    statusText: 'Inga larm rapporterade idag'
   };
+
+  fetch(query)
+  .then(response => response.json())
+  .then(json => this._handleStartupResponse(json.Entries));
 }
 
-onFecthDataPressed() {
-  this.setState({ isLoading: true});
-  const query = 'https://api.krisinformation.se/v1/feed';
 
+onFecthDataPressed() {
   this.setState({ isLoading: true});
   fetch(query)
   .then(response => response.json())
@@ -102,18 +108,26 @@ _handleResponse(Entries) {
   }
 }
 
+_handleStartupResponse(Entries) {
+  if(Entries.length > 0) {
+    this.setState({statusColor: '#f499ac', statusText: 'Pågående larm idag!'});
+  } else {
+    this.setState({statusColor: '#ffffff'});
+  }
+}
 
   render() {
     var spinner = this.state.isLoading ? ( <ActivityIndicator size='large' />) : (<View/>);
 
     return(
-    <View style={styles.container}>
-      <Text style={styles.description}>Detta är en app som hämtar krisinformation</Text>
+    <View style={styles.container} backgroundColor={this.state.statusColor}>
+      <Text style={styles.description}>Hör du WMA sirener?</Text>
+        <Text style={styles.description}>{this.state.statusText}</Text>
       <View style={styles.flowRight}>
       <TouchableHighlight style={styles.button}
         onPress={this.onFecthDataPressed.bind(this)}
         underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Hämta data</Text>
+          <Text style={styles.buttonText}>Hämta all information</Text>
         </TouchableHighlight>
         </View>
         <Image source={require('./Resources/logo.png')} style={styles.image} />
