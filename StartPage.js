@@ -77,7 +77,7 @@ constructor(props) {
 onFecthDataPressed() {
   this.setState({ isLoading: true});
   const query = 'https://api.krisinformation.se/v1/feed';
-  console.log('onfetchDataPressed');
+
   this.setState({ isLoading: true});
   fetch(query)
   .then(response => response.json())
@@ -97,7 +97,6 @@ _handleResponse(Entries) {
       component: CrisisResults,
       passProps: {Entries: Entries}
     });
-    //console.log('Properties found: ' + Entries.length);
   } else {
     this.setState({ message: 'Badness 2k'});
   }

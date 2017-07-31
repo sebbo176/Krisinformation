@@ -32,6 +32,11 @@ var styles = StyleSheet.create({
     fontSize: 20,
     color: '#656565'
   },
+  countries: {
+    fontSize: 18,
+    color: '#656565',
+    fontWeight: 'bold'
+  },
   rowContainer: {
     flexDirection: 'row',
     padding: 10
@@ -49,13 +54,17 @@ class CrisisResults extends Component {
 }
 
 renderRow(rowData, sectionID, rowID) {
+  var areas = Object.keys(rowData.CapArea)
+  .map(key => (rowData.CapArea[key].CapAreaDesc))
+  .join(', ');
+
   return (
     <TouchableHighlight
         underlayColor='#dddddd'>
       <View style={styles.rowContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{rowData.Title}</Text>
-          <Text style={styles.title}>{rowData.CapArea.CapAreaDesc}</Text>
+          <Text style={styles.title} numberOfLines={1}>{rowData.Title}</Text>
+          <Text style={styles.countries}>{areas}</Text>
         </View>
         <View style={styles.separator}/>
       </View>
