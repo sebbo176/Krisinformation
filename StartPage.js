@@ -96,8 +96,9 @@ onFecthDataPressed() {
 }
 
 _handleResponse(Entries) {
-
-  Entries.push(addSampleData());
+  if(useSampleData()) {
+    Entries.push(addSampleData());
+  }
 
   this.setState({ isLoading: false , message: ''});
   if(Entries.length > 0) {
@@ -116,7 +117,9 @@ _handleResponse(Entries) {
 _handleStartupResponse(Entries) {
 
   //I add this testdata to be able to test how the app woks with different responses
-  Entries.push(addSampleData());
+  if(useSampleData()) {
+    Entries.push(addSampleData());
+  }
 
   var today = new Date().toJSON().slice(0,10);
 
@@ -133,9 +136,11 @@ _handleStartupResponse(Entries) {
     var spinner = this.state.isLoading ? ( <ActivityIndicator size='large' />) : (<View/>);
 
     return(
-    <View style={styles.container} backgroundColor={this.state.statusColor}>
+    <View style={styles.container}>
       <Text style={styles.description}>Hör du WMA sirener?</Text>
+      <View backgroundColor={this.state.statusColor}>
         <Text style={styles.description}>{this.state.statusText}</Text>
+      </View>
       <View style={styles.flowRight}>
       <TouchableHighlight style={styles.button}
         onPress={this.onFecthDataPressed.bind(this)}
@@ -148,6 +153,10 @@ _handleStartupResponse(Entries) {
         <Text style={styles.description}>{this.state.message}</Text>
     </View>
   )};
+}
+
+function useSampleData() {
+  return true;
 }
 
 function addSampleData() {
