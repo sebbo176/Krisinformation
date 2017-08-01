@@ -96,6 +96,9 @@ onFecthDataPressed() {
 }
 
 _handleResponse(Entries) {
+
+  Entries.push(addSampleData());
+
   this.setState({ isLoading: false , message: ''});
   if(Entries.length > 0) {
     this.props.navigator.push({
@@ -108,8 +111,18 @@ _handleResponse(Entries) {
   }
 }
 
+
+
 _handleStartupResponse(Entries) {
-  if(Entries.length > 0) {
+
+  //I add this testdata to be able to test how the app woks with different responses
+  Entries.push(addSampleData());
+
+  var today = new Date().toJSON().slice(0,10);
+
+  var index = Entries.map(function(e){return e.CapEvent + e.Published.slice(0,10)}).indexOf('Alert' + today);
+  console.log('INDEX IS '+ index);
+  if(index >= 0) {
     this.setState({statusColor: '#f499ac', statusText: 'Pågående larm idag!'});
   } else {
     this.setState({statusColor: '#ffffff'});
@@ -135,6 +148,33 @@ _handleStartupResponse(Entries) {
         <Text style={styles.description}>{this.state.message}</Text>
     </View>
   )};
+}
+
+function addSampleData() {
+ return (
+       {
+       "ID": "http://api.krisinformation.se/v1/capmessage/1231?format=xml",
+       "Updated": "2017-07-21T08:08:14+02:00",
+       "Published": "2017-08-01T07:21:32+02:00",
+       "CapEvent": "Alert",
+       "Author": {
+           "Name": "https://www.krisinformation.se/"
+       },
+       "Title": "SOSSARNA kommer!",
+       "Link": {
+           "Id": null,
+           "LinkName": null,
+           "LinkUrl": "http://api.krisinformation.se/v1/capmessage/9982?format=xml"
+       },
+       "Summary": "Med anledning av tekniska problem med notiserna i vår mobilapp för krisinformation har vi nu valt att stänga av funktionen som trycker ut notiser till användarna, den så kallade pushfunktionen.",
+       "CapArea": [
+           {
+               "CapAreaDesc": "Sverige",
+               "Coordinate": "16.596265846848,62.8114849680804 0"
+           }
+       ]
+   }
+ );
 }
 
 module.exports = StartPage;
