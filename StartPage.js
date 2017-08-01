@@ -20,6 +20,13 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#656565'
   },
+  status: {
+    margin: 40,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'black',
+  },
   container: {
     padding: 30,
     marginTop: 65,
@@ -62,6 +69,20 @@ var styles = StyleSheet.create({
   image: {
     marginTop: 40,
     marginBottom: 20
+  },
+  alertStatusContainer: {
+    backgroundColor: '#f499ac',
+    marginBottom: 20,
+    borderColor: '#ed5474',
+    borderRadius: 8,
+    borderWidth: 1
+  },
+  newsStatusContainer: {
+    backgroundColor: '#99f4b4',
+    marginBottom: 20,
+    borderColor: '#e6e6e6',
+    borderRadius: 8,
+    borderWidth: 1
   }
 });
 
@@ -115,20 +136,16 @@ _handleResponse(Entries) {
 
 
 _handleStartupResponse(Entries) {
-
-  //I add this testdata to be able to test how the app woks with different responses
   if(useSampleData()) {
     Entries.push(addSampleData());
   }
-
   var today = new Date().toJSON().slice(0,10);
-
   var index = Entries.map(function(e){return e.CapEvent + e.Published.slice(0,10)}).indexOf('Alert' + today);
-  console.log('INDEX IS '+ index);
+
   if(index >= 0) {
-    this.setState({statusColor: '#f499ac', statusText: 'Pågående larm idag!'});
+    this.setState({statusColor: styles.alertStatusContainer, statusText: 'Pågående larm idag!'});
   } else {
-    this.setState({statusColor: '#ffffff'});
+    this.setState({statusColor: styles.newsStatusContainer});
   }
 }
 
@@ -138,8 +155,8 @@ _handleStartupResponse(Entries) {
     return(
     <View style={styles.container}>
       <Text style={styles.description}>Hör du WMA sirener?</Text>
-      <View backgroundColor={this.state.statusColor}>
-        <Text style={styles.description}>{this.state.statusText}</Text>
+      <View style={this.state.statusColor}>
+        <Text style={styles.status}>{this.state.statusText}</Text>
       </View>
       <View style={styles.flowRight}>
       <TouchableHighlight style={styles.button}
