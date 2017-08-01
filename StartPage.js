@@ -73,7 +73,7 @@ var styles = StyleSheet.create({
   alertStatusContainer: {
     backgroundColor: '#f499ac',
     marginBottom: 20,
-    borderColor: '#ed5474',
+    borderColor: '#e6e6e6',
     borderRadius: 8,
     borderWidth: 1
   },
