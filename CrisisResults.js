@@ -53,14 +53,17 @@ renderRow(rowData, sectionID, rowID) {
   .map(key => (rowData.CapArea[key].CapAreaDesc))
   .join(', ');
   var backgroundColor = rowData.CapEvent === 'News' ? '#ffffff' : '#f499ac';
-  
+
   return (
     <TouchableHighlight
         underlayColor='#dddddd'>
-      <View style={styles.rowContainer} backgroundColor={backgroundColor}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title} numberOfLines={1}>{rowData.Title}</Text>
-          <Text style={styles.countries}>{areas}</Text>
+        <View>
+         <View style={styles.rowContainer} backgroundColor={backgroundColor}>
+          <View style={styles.textContainer}>
+            <Text style={styles.title} numberOfLines={1}>{rowData.Title}</Text>
+            <Text style={styles.countries}>{areas}</Text>
+            <Text style={styles.title}>{rowData.Published.slice(0,10)}</Text>
+          </View>
         </View>
         <View style={styles.separator}/>
       </View>
