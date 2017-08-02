@@ -10,6 +10,8 @@ import {
   Text
 } from 'react-native';
 
+var EntryView = require('./EntryView');
+
 var styles = StyleSheet.create({
   thumb: {
     width: 80,
@@ -48,6 +50,16 @@ class CrisisResults extends Component {
   };
 }
 
+rowPressed(ID) {
+  var entry = this.props.Entries.filter(prop => prop.ID === ID)[0];
+
+  this.props.navigator.push({
+    title: "Information",
+    component: EntryView,
+    passProps: {entry: entry }
+  });
+}
+
 renderRow(rowData, sectionID, rowID) {
   var areas = Object.keys(rowData.CapArea)
   .map(key => (rowData.CapArea[key].CapAreaDesc))
@@ -55,7 +67,7 @@ renderRow(rowData, sectionID, rowID) {
   var backgroundColor = rowData.CapEvent === 'News' ? '#ffffff' : '#f499ac';
 
   return (
-    <TouchableHighlight
+    <TouchableHighlight onPress={()=> this.rowPressed(rowData.ID)}
         underlayColor='#dddddd'>
         <View>
          <View style={styles.rowContainer} backgroundColor={backgroundColor}>
