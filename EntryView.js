@@ -8,6 +8,9 @@ import {
   Text
 } from 'react-native';
 
+//maps api key
+//AIzaSyCiUTMwpgNsurdax8r8eLqvVp09ptJkoyg
+
 var styles = StyleSheet.create({
   container: {
     marginTop: 65
@@ -49,10 +52,12 @@ class EntryView extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.heading}>
-          <Text style={styles.title}>{entry.title}</Text>
+          <Text style={styles.title}>{entry.Title}</Text>
+          <Text style={styles.title}>{entry.Published.slice(0,10)}</Text>
           <View style={styles.separator}/>
         </View>
         <Text style={styles.description}>{entry.Summary}</Text>
+        <View style={styles.separator}/>
       </View>
     );
   }

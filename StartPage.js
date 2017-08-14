@@ -124,7 +124,7 @@ _handleResponse(Entries) {
   this.setState({ isLoading: false , message: ''});
   if(Entries.length > 0) {
     this.props.navigator.push({
-      title: 'Results',
+      title: 'Data från krisinformation.se',
       component: CrisisResults,
       passProps: {Entries: Entries}
     });
@@ -181,7 +181,7 @@ function addSampleData() {
        {
        "ID": "http://api.krisinformation.se/v1/capmessage/1231?format=xml",
        "Updated": "2017-07-21T08:08:14+02:00",
-       "Published": "2017-08-02T07:21:32+02:00",
+       "Published": "2017-08-14T07:21:32+02:00",
        "CapEvent": "Alert",
        "Author": {
            "Name": "https://www.krisinformation.se/"
