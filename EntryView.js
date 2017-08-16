@@ -79,8 +79,6 @@ class EntryView extends Component {
     var longitude = parseFloat(entry.CapArea[0].Coordinate.split(',')[0]);
     var latitude = parseFloat(entry.CapArea[0].Coordinate.split(',')[1].split(' ')[0]);
 
-    console.log('longitude=' + longitude);
-    console.log('lat=' + latitude);
     return (
       <View style={styles.container}>
         <View style={styles.heading}>
